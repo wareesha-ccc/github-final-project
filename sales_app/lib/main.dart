@@ -1,39 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sales_app/routes/route_management.dart' show AppPages;
 
-import 'package:sales_app/screens/signup_screen.dart';
+import 'routes/app_routes.dart';
+import 'utils/app_strings.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SalesApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// Root widget — StatelessWidget because it only configures the app,
+/// it never rebuilds itself in response to state changes.
+class SalesApp extends StatelessWidget {
+  const SalesApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const Signup(),
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //   colorSchemeSeed: const Color(0xFF3A5BFF),
+      //   scaffoldBackgroundColor: const Color(0xFFF7F8FC),
+      //   fontFamily: 'Roboto',
+      //   // appBarTheme: const AppBarTheme(
+      //   //   backgroundColor: Colors.transparent,
+      //   //   elevation: 0,
+      //   //   foregroundColor: Colors.black87,
+      //   //   centerTitle: false,
+      //   // ),
+      // ),
+      // Proper GetX routing: every page is registered in AppPages with
+      // a named route from AppRoutes. ProductDetailPage takes its
+      // Product via `arguments` (see app_pages.dart), keeping
+      // navigation type-safe without manual MaterialPageRoute pushes.
+      initialRoute: AppRoutes.login,
+      getPages: AppPages.pages,
     );
   }
 }
